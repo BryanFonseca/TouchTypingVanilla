@@ -1,0 +1,79 @@
+:root{
+  font-family: sans-serif;
+  color: #333;
+}
+
+*, *::after, *::before{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ccc;
+}
+
+.app-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 70vw;
+  background-color: red;
+  border-radius: 1em;
+  background: linear-gradient(to right, #78ffd6, #007991); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  padding: 2em;
+}
+
+.touch-typer{
+  position: relative;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1em;
+  width: 50%;
+  height: 30%;
+}
+
+.touch-typer__text-container{
+  display: flex;
+  flex-wrap: wrap;
+/*   gap: 0.1em; */
+  border-radius: 0.2em;
+/*   padding: 1em; */
+  width: 100%;
+  height: 50%;
+  background-color: #ccc;
+  overflow-y: auto;
+}
+
+.break-area{
+  position: absolute;
+  top: 0;
+  background-color: rgba(255, 255, 255, 50%);
+}
+
+.touch-typer__text-container > .word{
+/* en px porque a JS le da ansiedad hacer cálculos con decimales  */
+  margin: 2px 0.2em;
+}
+
+.touch-typer__input{
+  font-size: 1.2rem;
+  display: block;
+  width: 20%;
+  padding: 0.4em;
+}
+
+.touch-typer__text-container > .word:nth-child(1){
+  background-color: red;
+}
+.touch-typer__text-container > .word:nth-child(6){
+  background-color: red;
+}
