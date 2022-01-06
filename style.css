@@ -77,3 +77,14 @@ body{
 .touch-typer__text-container > .word:nth-child(6){
   background-color: red;
 }
+
+/* Modifier classes */
+.word--typed{
+  background-color: gray !important;
+}
+.char--correct{
+  color: green !important;
+}
+.char--wrong{
+  color: yellow !important;
+}
