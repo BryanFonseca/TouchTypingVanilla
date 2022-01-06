@@ -71,12 +71,13 @@ body{
   padding: 0.4em;
 }
 
-.touch-typer__text-container > .word:nth-child(1){
+/* Solo para visualizar el tamaño que ocupa cada palabra  */
+/* .touch-typer__text-container > .word:nth-child(1){
   background-color: red;
 }
 .touch-typer__text-container > .word:nth-child(6){
   background-color: red;
-}
+} */
 
 /* Modifier classes */
 .word--typed{
@@ -86,5 +87,5 @@ body{
   color: green !important;
 }
 .char--wrong{
-  color: yellow !important;
+  color: red !important;
 }

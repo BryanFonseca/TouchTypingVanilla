@@ -22,7 +22,8 @@ class TouchTyper {
     if (this.#currentWord + " " === typedText) {
       //la palabra escrita es correcta después de pulsar espacio
       this.#currentWord = this.textToType.getNextWord();
-      //aquí debería comprobarse si la nueva palabra está dentro del área y si no lo está, hacer scroll
+      const currentWordElement = this.textToType.getWordElementByIndex(this.textToType.getCurrentWordIndex());
+      this.textToType.centerWordInContainer(currentWordElement);
       this.textInput.getElement().value = "";
       this.textToType.paintTypedWord();
       return;
@@ -44,13 +45,13 @@ class TouchTyper {
 class TextArea {
   #textArray;
   #currentWordIndex = 0;
+  #breakArea;
   constructor(htmlElement, text) {
     this.htmlElement = htmlElement;
     this.#textArray = text.split(" ");
-
     this._generateText();
     //aquí se debe generar el area
-    this._generateArea();
+    this.#breakArea = this._generateArea();
   }
   paintTypedWord(){
     this.htmlElement.querySelectorAll('.word')[this.#currentWordIndex - 2].classList.add('word--typed');
@@ -70,23 +71,75 @@ class TextArea {
       char.classList.add(`char--${isCorrect}`);
     });
   }
-  _generateText() {
-    this.#textArray.forEach((word) => {
-      const markedUpWords = [...word]
-        .map((char) => `<span class="char">${char}</span>`)
-        .join("");
-      const html = `<span class="word">${markedUpWords}</span>`;
-      this.htmlElement.insertAdjacentHTML("beforeend", html);
-    });
-  }
-  _generateArea() {
-    //
+  centerWordInContainer(element) {
+    if(this._isInsideArea(element)){
+      this._scrollElementHeight(element);
+    }
   }
   getNextWord() {
     //se usa contador para no mutar el array con unshift
     const word = this.#textArray[this.#currentWordIndex];
     this.#currentWordIndex++;
     return word;
+  }
+  getWordElementByIndex(index){
+    return this.htmlElement.querySelectorAll('.word')[index];
+  }
+  getCurrentWordIndex(){
+    //esto puede llamarse cuando termine el tiempo en el objeto TouchTyper para saber cuántas palabras se escribieron
+    return this.#currentWordIndex - 1;
+  }
+  _isInsideArea(element){
+    //top is distance from top of the viewport to the element
+    const { top: elementTop } = element.getBoundingClientRect();
+    const { top: breakAreaTop } = this.#breakArea.getBoundingClientRect();
+    const areaHeight = Number.parseFloat(window.getComputedStyle(this.#breakArea).height);
+    const bottomArea = breakAreaTop + areaHeight;
+
+    const wordTopMargin = Number.parseFloat(
+      window.getComputedStyle(element).marginTop
+    );
+
+    const wordHeight =
+      Number.parseFloat(window.getComputedStyle(element).height) +
+      wordTopMargin * 2;
+
+    if (elementTop > bottomArea) {
+      console.log("Fuera del áre'");
+    } else {
+      console.log("Dentro del área");
+    }
+
+    return elementTop > bottomArea;
+  }
+  _generateText() {
+    this.#textArray.forEach((word) => {
+      const markedUpWords = [...word]
+	.map((char) => `<span class="char">${char}</span>`)
+	.join("");
+      const html = `<span class="word">${markedUpWords}</span>`;
+      this.htmlElement.insertAdjacentHTML("beforeend", html);
+    });
+  }
+  _generateArea() {
+    //
+    const firstWord = document.querySelector(".word");
+    const breakArea = document.createElement("div");
+    const component = document.querySelector(".touch-typer");
+    breakArea.classList.add("break-area");
+    breakArea.style.height = window.getComputedStyle(firstWord).height;
+    breakArea.style.width = "100%";
+    component.insertBefore(breakArea, textContainer);
+    return breakArea;
+  }
+  _scrollElementHeight(element) {
+    const topMargin = Number.parseFloat(window.getComputedStyle(element).marginTop);
+    const height = Number.parseFloat(window.getComputedStyle(element).height) + topMargin * 2;
+
+    this.htmlElement.scroll({
+      top: this.htmlElement.scrollTop + height,
+      behavior: "smooth",
+    });
   }
 }
 
@@ -101,63 +154,6 @@ class TextInput {
 
 const textContainer = document.querySelector(".touch-typer__text-container");
 const inputElement = document.querySelector(".touch-typer__input");
-const component = document.querySelector(".touch-typer");
 
 const app = new App();
-
-/* const firstWord = document.querySelector(".word");
-const breakArea = document.createElement("div");
-breakArea.classList.add("break-area");
-breakArea.style.height = window.getComputedStyle(firstWord).height;
-breakArea.style.width = "100%";
-component.insertBefore(breakArea, textContainer);
-
 //El scroll va a estar desactivado mientras está corriendo el tiempo
-
-//Está dentro de área?
-function isInsideArea(area, element) {
-  const { top: elementTop } = element.getBoundingClientRect();
-  const { top: breakAreaTop } = area.getBoundingClientRect();
-  const areaHeight = Number.parseFloat(window.getComputedStyle(area).height);
-  const bottomArea = breakAreaTop + areaHeight;
-  console.log("word top", elementTop);
-  console.log("break area top", bottomArea);
-
-  const wordTopMargin = Number.parseFloat(
-    window.getComputedStyle(element).marginTop
-  );
-  const wordHeight =
-    Number.parseFloat(window.getComputedStyle(element).height) +
-    wordTopMargin * 2;
-
-  console.log(textContainer.scrollTop);
-
-  if (elementTop > bottomArea) {
-    console.log("La palabra actual está fuera del area");
-//Se necesita hacer scroll
-    textContainer.scroll({
-      top: textContainer.scrollTop + wordHeight,
-      behavior: "smooth",
-    });
-  } else {
-    console.log("DENTRO");
-  }
-}
-
-function scrollElementHeight(container, element) {
-  const topMargin = Number.parseFloat(
-    window.getComputedStyle(element).marginTop
-  );
-  const height =
-    Number.parseFloat(window.getComputedStyle(element).height) + topMargin * 2;
-  container.scroll({
-    top: container.scrollTop + height,
-    behavior: "smooth",
-  });
-}
-
-const targetBelow = document.querySelector(
-  ".touch-typer__text-container > .word:nth-child(6)"
-);
-const targetAbove = document.querySelector(".word");
-isInsideArea(breakArea, targetAbove); */
