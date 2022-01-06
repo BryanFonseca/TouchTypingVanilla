@@ -1,15 +1,17 @@
-:root{
+:root {
   font-family: sans-serif;
   color: #333;
 }
 
-*, *::after, *::before{
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
+body {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +19,11 @@ body{
   background-color: #ccc;
 }
 
-.app-container{
+span{
+  display: inline-block;
+}
+
+.app-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -25,11 +31,11 @@ body{
   width: 70vw;
   background-color: red;
   border-radius: 1em;
-  background: linear-gradient(to right, #78ffd6, #007991); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #ff9966, #ff5e62);
   padding: 2em;
 }
 
-.touch-typer{
+.touch-typer {
   position: relative;
   font-size: 1.2rem;
   display: flex;
@@ -41,51 +47,127 @@ body{
   height: 30%;
 }
 
-.touch-typer__text-container{
+.touch-typer__text-container {
+  font-size: 1.3rem;
   display: flex;
   flex-wrap: wrap;
-/*   gap: 0.1em; */
+  flex-basis: content;
+  flex-grow: 0;
+  /*   gap: 0.1em; */
   border-radius: 0.2em;
-/*   padding: 1em; */
+  padding: 0.45em;
   width: 100%;
   height: 50%;
-  background-color: #ccc;
+  background-color: #ddd;
+  border: 1px solid #444;
   overflow-y: auto;
 }
 
-.break-area{
+.break-area {
   position: absolute;
   top: 0;
-  background-color: rgba(255, 255, 255, 50%);
+/*   background-color: rgba(255, 255, 255, 50%); */
 }
 
-.touch-typer__text-container > .word{
-/* en px porque a JS le da ansiedad hacer cálculos con decimales  */
+.touch-typer__text-container > .word {
+  /* en px porque a JS le da ansiedad hacer cálculos con decimales  */
   margin: 2px 0.2em;
 }
 
-.touch-typer__input{
+.touch-typer__input {
   font-size: 1.2rem;
   display: block;
-  width: 20%;
+  width: 25%;
   padding: 0.4em;
+  text-align: center;
 }
 
 /* Solo para visualizar el tamaño que ocupa cada palabra  */
 /* .touch-typer__text-container > .word:nth-child(1){
-  background-color: red;
+background-color: red;
 }
 .touch-typer__text-container > .word:nth-child(6){
-  background-color: red;
+background-color: red;
 } */
 
 /* Modifier classes */
-.word--typed{
-  background-color: gray !important;
+  .word{
+    position: relative;
+  }
+.word--typed::after {
+  content:"";
+  top: 0;
+  left: 0;
+  height: 108%;
+  width: 120%;
+  border-radius: 0.3em;
+  transform: translate(-9%, 0);
+  position: absolute;
+  background-color: rgba(100, 100, 100, 25%) !important;
 }
-.char--correct{
+.char--correct {
   color: green !important;
+  animation: pulse 0.2s;
+  transform-origin: center bottom;
 }
-.char--wrong{
+.char--wrong {
   color: red !important;
+  /*   animation: correct-fade-in 0.5s ease-in; */
+  animation-fill-mode: forwards;
+}
+
+/* SCROLL */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 0px;
+  transition: all 0.5s;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+
+@keyframes correct-fade-out{
+  0%{
+    color: green;
+  }
+  50%{
+    transform: translate(-0.2em, -0.4em) rotate(-40deg);
+  }
+  100%{
+    color: transparent;
+    transform: translate(-0.4em, -0.3em) rotate(-80deg);
+  }
+}
+@keyframes correct-fade-in{
+  100%{
+    color: green;
+  }
+  50%{
+    transform: translate(-0.2em, -0.4em) rotate(-40deg);
+  }
+  0%{
+    color: transparent;
+    transform: translate(-0.4em, -0.3em) rotate(-80deg);
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+
+  50% {
+    transform: scale3d(1.10, 1.10, 1.10);
+  }
+
+  to {
+    transform: scale3d(1, 1, 1);
+  }
 }

@@ -1,31 +1,85 @@
 const palabras =
-  "Lorem Consectetur esse corrupti aspernatur nesciunt quidem? Fuga officia cupiditate odit in eveniet Ipsam iusto vel iste magnam est, at minima Dolorem perspiciatis ducimus voluptatem nesciunt temporibus Debitis nulla dignissimos dolor Elit deleniti repellendus numquam unde quisquam Tenetur alias corporis quae eum architecto minus. Corporis laudantium rem dolorum accusantium sed cupiditate aliquid? Ratione deserunt illum illum ipsum minima Nesciunt a maxime. lorem Amet iste corporis commodi consequatur commodi. Obcaecati sunt cum rem sunt repudiandae Eveniet magnam aperiam amet quae perferendis iste Dolore aperiam laudantium id omnis tenetur Non commodi nisi officiis accusamus? lorem Amet reiciendis recusandae illum optio in! Unde quia omnis fugiat laborum perferendis! Exercitationem officia consectetur numquam doloribus rerum. Nam illo ducimus praesentium impedit itaque iusto quibusdam quas atque Harum amet.";
+  "Esto es un texto de ejemplo porque es un ejemplo y está siendo un texto a la vez la premisa en sencilla pero no bilateral siguen siendo dos cosas completamente diferentes y estoy intentando que esto sea lo más largo posible estoy seguro de que hola mamá como estás yo igual te voy a sacar de esta basura de país";
+/* const palabras = "Hoy no se considera"; */
 class App {
   #touchTyper = new TouchTyper(textContainer, inputElement, palabras);
   constructor() {}
 }
 
+class Timer {
+  #intervalID;
+  constructor(seconds) {
+    this.seconds = seconds;
+  }
+  start() {
+    this.#intervalID = setInterval(this._tick.bind(this), 1000);
+  }
+  _tick() {
+    if(this.seconds <= 0) return;
+    this.seconds--;
+    console.log(this.seconds);
+  }
+  stop() {
+    clearInterval(this.#intervalID);
+  }
+}
+
 class TouchTyper {
   #currentWord;
+  #timer;
+  #isTypingLastWord;
   constructor(textContainerElement, inputElement, text) {
     this.textToType = new TextArea(textContainerElement, text);
     this.textInput = new TextInput(inputElement);
-    this.#currentWord = this.textToType.getNextWord();
+    this.#timer = new Timer(10);
+    this.#isTypingLastWord = false;
 
+    this.#currentWord = this.textToType.getNextWordInfo().word;
     this.textInput
       .getElement()
       .addEventListener("input", this._checkWord.bind(this));
+    this.textInput
+      .getElement()
+      .addEventListener("input", this._startTimer.bind(this), { once: true });
+    this.textToType.paintCurrentWord();
+
+    /*     this.textInput.getElement().addEventListener('input', function(){
+      document.styleSheets[0].insertRule('::-webkit-scrollbar-thumb{background: transparent !important}')
+    }, {once: true}); */
+  }
+  _startTimer() {
+    this.#timer.start();
   }
   _checkWord() {
     const typedText = this.textInput.getElement().value;
+
+    //hay algún espacio
+    /*     const anySpace = typedText.includes(' '); */
+
+    //el modo precisión es recomendado para textos con signos de puntuación, donde se requiere ser 100% preciso
+    //el modo normal está orientado a usarse con palabras idealmente aleatorias
+
     //modo precisión
-    if (this.#currentWord + " " === typedText) {
+    /*     if (typedText === this.#currentWord + " " || anySpace) { */
+    if (typedText === this.#currentWord + " ") {
       //la palabra escrita es correcta después de pulsar espacio
-      this.#currentWord = this.textToType.getNextWord();
-      const currentWordElement = this.textToType.getWordElementByIndex(this.textToType.getCurrentWordIndex());
+
+      if (this.#isTypingLastWord) {
+        //Se escribió la última palabra
+        console.log("fin");
+        this.#timer.stop();
+      }
+
+      const wordInfo = { ...this.textToType.getNextWordInfo() };
+      this.#currentWord = wordInfo.word;
+      this.#isTypingLastWord = wordInfo.isLast;
+
+      const currentWordElement = this.textToType.getWordElementByIndex(
+        this.textToType.getCurrentWordIndex()
+      );
       this.textToType.centerWordInContainer(currentWordElement);
       this.textInput.getElement().value = "";
-      this.textToType.paintTypedWord();
+      this.textToType.paintCurrentWord();
       return;
     }
 
@@ -50,11 +104,13 @@ class TextArea {
     this.htmlElement = htmlElement;
     this.#textArray = text.split(" ");
     this._generateText();
-    //aquí se debe generar el area
     this.#breakArea = this._generateArea();
   }
-  paintTypedWord(){
-    this.htmlElement.querySelectorAll('.word')[this.#currentWordIndex - 2].classList.add('word--typed');
+  paintCurrentWord() {
+    this.htmlElement.querySelectorAll('.word').forEach(wordEl => wordEl.classList.remove('word--typed'));
+    this.htmlElement
+      .querySelectorAll(".word")
+      [this.#currentWordIndex - 1].classList.add("word--typed");
   }
   paintCharacter(charIndex, isCorrect) {
     // prettier-ignore
@@ -72,51 +128,51 @@ class TextArea {
     });
   }
   centerWordInContainer(element) {
-    if(this._isInsideArea(element)){
+    const wordsElementArray = this.htmlElement.querySelector(".word");
+    if (element === wordsElementArray[wordsElementArray.length - 1]) return;
+    if (this._isInsideArea(element)) {
       this._scrollElementHeight(element);
     }
   }
-  getNextWord() {
+  getNextWordInfo() {
     //se usa contador para no mutar el array con unshift
     const word = this.#textArray[this.#currentWordIndex];
     this.#currentWordIndex++;
-    return word;
+    const wordInfo = {
+      isLast: this.getCurrentWordIndex() === this.#textArray.length - 1,
+      word,
+    };
+    return wordInfo;
   }
-  getWordElementByIndex(index){
-    return this.htmlElement.querySelectorAll('.word')[index];
+  getWordElementByIndex(index) {
+    return this.htmlElement.querySelectorAll(".word")[index];
   }
-  getCurrentWordIndex(){
+  getCurrentWordIndex() {
     //esto puede llamarse cuando termine el tiempo en el objeto TouchTyper para saber cuántas palabras se escribieron
     return this.#currentWordIndex - 1;
   }
-  _isInsideArea(element){
+  _isInsideArea(element) {
     //top is distance from top of the viewport to the element
     const { top: elementTop } = element.getBoundingClientRect();
     const { top: breakAreaTop } = this.#breakArea.getBoundingClientRect();
-    const areaHeight = Number.parseFloat(window.getComputedStyle(this.#breakArea).height);
+    const areaHeight = Number.parseFloat(
+      window.getComputedStyle(this.#breakArea).height
+    );
     const bottomArea = breakAreaTop + areaHeight;
 
-    const wordTopMargin = Number.parseFloat(
-      window.getComputedStyle(element).marginTop
-    );
-
-    const wordHeight =
-      Number.parseFloat(window.getComputedStyle(element).height) +
-      wordTopMargin * 2;
-
-    if (elementTop > bottomArea) {
+    /*     if (elementTop > bottomArea) {
       console.log("Fuera del áre'");
     } else {
       console.log("Dentro del área");
-    }
+    } */
 
     return elementTop > bottomArea;
   }
   _generateText() {
     this.#textArray.forEach((word) => {
       const markedUpWords = [...word]
-	.map((char) => `<span class="char">${char}</span>`)
-	.join("");
+        .map((char) => `<span class="char">${char}</span>`)
+        .join("");
       const html = `<span class="word">${markedUpWords}</span>`;
       this.htmlElement.insertAdjacentHTML("beforeend", html);
     });
@@ -126,15 +182,30 @@ class TextArea {
     const firstWord = document.querySelector(".word");
     const breakArea = document.createElement("div");
     const component = document.querySelector(".touch-typer");
+    const containerPaddingTop = Number.parseFloat(
+      window.getComputedStyle(this.htmlElement).paddingTop
+    );
     breakArea.classList.add("break-area");
     breakArea.style.height = window.getComputedStyle(firstWord).height;
+/*     console.log(containerPaddingTop); */
+    breakArea.style.top = containerPaddingTop + "px";
     breakArea.style.width = "100%";
     component.insertBefore(breakArea, textContainer);
     return breakArea;
   }
   _scrollElementHeight(element) {
-    const topMargin = Number.parseFloat(window.getComputedStyle(element).marginTop);
-    const height = Number.parseFloat(window.getComputedStyle(element).height) + topMargin * 2;
+    const topMargin = Number.parseFloat(
+      window.getComputedStyle(element).marginTop
+    );
+    const height =
+      Number.parseFloat(window.getComputedStyle(element).height) +
+      topMargin * 2;
+
+    const {top: topWordOutOfArea} = element.getBoundingClientRect();
+    const {top: topContainer} = this.htmlElement.getBoundingClientRect();
+/*     console.log(topContainer);
+    console.log(topWordOutOfArea); */
+    console.log(topWordOutOfArea - topContainer);
 
     this.htmlElement.scroll({
       top: this.htmlElement.scrollTop + height,
@@ -154,6 +225,5 @@ class TextInput {
 
 const textContainer = document.querySelector(".touch-typer__text-container");
 const inputElement = document.querySelector(".touch-typer__input");
-
 const app = new App();
 //El scroll va a estar desactivado mientras está corriendo el tiempo
