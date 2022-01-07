@@ -1,3 +1,4 @@
+const timerElement = document.querySelector(".touch-typer__timer");
 const palabras =
   "Esto es un texto de ejemplo porque es un ejemplo y está siendo un texto a la vez la premisa es sencilla pero no bilateral siguen siendo dos cosas completamente diferentes y estoy intentando que esto sea lo más largo posible estoy seguro de que hola mamá como estás yo igual te voy a sacar de esta basura de país";
 /* const palabras = "Hoy no se considera"; */
@@ -8,19 +9,48 @@ class App {
 
 class Timer {
   #intervalID;
+  #htmlElement;
+  #seconds;
   constructor(seconds) {
-    this.seconds = seconds;
+    this.#seconds = seconds;
+    this.#htmlElement = timerElement;
+
+    this.#htmlElement.addEventListener("change", this._setTime.bind(this));
+  }
+  _setTime() {
+    //comprobar por decimales y números en general
+
+    if(!this.#htmlElement.value.includes(':')){
+      this.#seconds = +this.#htmlElement.value;
+      return;
+    }
+    const [minute, second] = this.#htmlElement.value.split(":").map((n) => +n);
+    this.#seconds = minute * 60 + second;
   }
   start() {
+    this.#htmlElement.disabled = true;
     this.#intervalID = setInterval(this._tick.bind(this), 1000);
+    this._tick();
   }
   _tick() {
-    if (this.seconds <= 0) return;
-    this.seconds--;
-    console.log(this.seconds);
+    const minute = String(Math.floor(this.#seconds / 60));
+    const second = String(this.#seconds % 60).padStart(2, "0");
+    const timeText = minute + ":" + second;
+    this.#htmlElement.value = timeText;
+
+    if (this.#seconds <= 0){
+      this.stop();
+      return;
+    } 
+    this.#seconds--;
   }
   stop() {
+    //remover listener y agregarlo nuevamente
+    this.#htmlElement.disabled = false;
     clearInterval(this.#intervalID);
+  }
+  reset(){
+    //cuando se presione el botón reiniciar del widget
   }
 }
 
@@ -31,7 +61,7 @@ class TouchTyper {
   constructor(textContainerElement, inputElement, text) {
     this.textToType = new TextArea(textContainerElement, text);
     this.textInput = new TextInput(inputElement);
-    this.#timer = new Timer(10);
+    this.#timer = new Timer(60);
     this.#isTypingLastWord = false;
 
     this.#currentWord = this.textToType.getNextWordInfo().word;
@@ -61,9 +91,9 @@ class TouchTyper {
       //la palabra escrita es correcta después de pulsar espacio
 
       if (this.#isTypingLastWord) {
-        //Se escribió la última palabra
-        console.log("fin");
-        this.#timer.stop();
+	//Se escribió la última palabra
+	console.log("fin");
+	this.#timer.stop();
       }
 
       const wordInfo = { ...this.textToType.getNextWordInfo() };
@@ -71,7 +101,7 @@ class TouchTyper {
       this.#isTypingLastWord = wordInfo.isLast;
 
       const currentWordElement = this.textToType.getWordElementByIndex(
-        this.textToType.getCurrentWordIndex()
+	this.textToType.getCurrentWordIndex()
       );
       this.textToType.centerWordInContainer(currentWordElement);
       this.textInput.getElement().value = "";
@@ -112,7 +142,7 @@ class TextArea {
 
     this.htmlElement
       .querySelectorAll(".word")
-      [this.#currentWordIndex - 1].classList.add("word--current");
+    [this.#currentWordIndex - 1].classList.add("word--current");
   }
   paintCharacter(charIndex, isCorrect) {
     // prettier-ignore
@@ -165,11 +195,11 @@ class TextArea {
   _generateText() {
     const markedUpWords = this.#textArray
       .map((word) => {
-        const markedUpChars = [...word]
-          .map((char) => `<span class="char">${char}</span>`)
-          .join("");
-        const html = `<span class="word">${markedUpChars}</span>`;
-        return html;
+	const markedUpChars = [...word]
+	  .map((char) => `<span class="char">${char}</span>`)
+	  .join("");
+	const html = `<span class="word">${markedUpChars}</span>`;
+	return html;
       })
       .join("");
     this.htmlElement.insertAdjacentHTML("beforeend", markedUpWords);

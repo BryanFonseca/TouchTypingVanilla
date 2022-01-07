@@ -47,17 +47,43 @@ span {
   height: 30%;
 }
 
+.touch-typer__top{
+  display: flex;
+  gap: 0.2em;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.touch-typer__top > *{
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.touch-typer__top > .touch-typer__timer{
+/*   height: 50%; */
+  flex-grow: 25;
+  width: 15%;
+}
+
+.touch-typer__top > .touch-typer__text-container{
+  flex-grow: 75;
+}
+
 .touch-typer__text-container {
+  min-width: 0;
+  min-height: 0;
   font-size: 1.5rem;
   display: flex;
   flex-wrap: wrap;
-  flex-basis: content;
-  flex-grow: 0;
+/*   flex-basis: content;
+  flex-grow: 0; */
   /*   gap: 0.1em; */
   border-radius: 0.2em;
   padding: 0.45em;
   width: 100%;
-  height: 50%;
   background-color: #ddd;
   border: 1px solid #444;
   overflow-y: auto;
@@ -94,6 +120,7 @@ background-color: red;
 /* Modifier classes */
 .word {
   position: relative;
+  min-width: 0;
 }
 .word--current::after {
   content: "";
