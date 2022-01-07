@@ -1,7 +1,10 @@
+const palabras = rawText
+  .split(/\t|\n/)
+  .filter((_, i) => ((i + 1) % 2 === 0 ? true : false))
+  .map((word) => word.toLowerCase())
+  .join(" ");
+
 const timerElement = document.querySelector(".touch-typer__timer");
-const palabras =
-  "Esto es un texto de ejemplo porque es un ejemplo y está siendo un texto a la vez la premisa es sencilla pero no bilateral siguen siendo dos cosas completamente diferentes y estoy intentando que esto sea lo más largo posible estoy seguro de que hola mamá como estás yo igual te voy a sacar de esta basura de país";
-/* const palabras = "Hoy no se considera"; */
 class App {
   #touchTyper = new TouchTyper(textContainer, inputElement, palabras);
   constructor() {}
@@ -20,7 +23,7 @@ class Timer {
   _setTime() {
     //comprobar por decimales y números en general
 
-    if(!this.#htmlElement.value.includes(':')){
+    if (!this.#htmlElement.value.includes(":")) {
       this.#seconds = +this.#htmlElement.value;
       return;
     }
@@ -38,10 +41,10 @@ class Timer {
     const timeText = minute + ":" + second;
     this.#htmlElement.value = timeText;
 
-    if (this.#seconds <= 0){
+    if (this.#seconds <= 0) {
       this.stop();
       return;
-    } 
+    }
     this.#seconds--;
   }
   stop() {
@@ -49,7 +52,7 @@ class Timer {
     this.#htmlElement.disabled = false;
     clearInterval(this.#intervalID);
   }
-  reset(){
+  reset() {
     //cuando se presione el botón reiniciar del widget
   }
 }
@@ -91,9 +94,9 @@ class TouchTyper {
       //la palabra escrita es correcta después de pulsar espacio
 
       if (this.#isTypingLastWord) {
-	//Se escribió la última palabra
-	console.log("fin");
-	this.#timer.stop();
+        //Se escribió la última palabra
+        console.log("fin");
+        this.#timer.stop();
       }
 
       const wordInfo = { ...this.textToType.getNextWordInfo() };
@@ -101,7 +104,7 @@ class TouchTyper {
       this.#isTypingLastWord = wordInfo.isLast;
 
       const currentWordElement = this.textToType.getWordElementByIndex(
-	this.textToType.getCurrentWordIndex()
+        this.textToType.getCurrentWordIndex()
       );
       this.textToType.centerWordInContainer(currentWordElement);
       this.textInput.getElement().value = "";
@@ -142,7 +145,7 @@ class TextArea {
 
     this.htmlElement
       .querySelectorAll(".word")
-    [this.#currentWordIndex - 1].classList.add("word--current");
+      [this.#currentWordIndex - 1].classList.add("word--current");
   }
   paintCharacter(charIndex, isCorrect) {
     // prettier-ignore
@@ -195,11 +198,11 @@ class TextArea {
   _generateText() {
     const markedUpWords = this.#textArray
       .map((word) => {
-	const markedUpChars = [...word]
-	  .map((char) => `<span class="char">${char}</span>`)
-	  .join("");
-	const html = `<span class="word">${markedUpChars}</span>`;
-	return html;
+        const markedUpChars = [...word]
+          .map((char) => `<span class="char">${char}</span>`)
+          .join("");
+        const html = `<span class="word">${markedUpChars}</span>`;
+        return html;
       })
       .join("");
     this.htmlElement.insertAdjacentHTML("beforeend", markedUpWords);
