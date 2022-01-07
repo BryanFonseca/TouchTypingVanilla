@@ -6,17 +6,32 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <div class="background-circle"></div>
     <main class="app-container">
+      <div class="github-profile-corner">
+        <a class="github-profile-triangle"> </a>
+	<a class="github-profile-button" href="https://github.com/BryanFonseca">
+	  <ion-icon name="logo-github"></ion-icon>
+	</a>
+      </div>
       <div class="touch-typer">
 	<div class="touch-typer__top">
-	  <input class="touch-typer__timer" type="text" value="1:00">
-	  <div class="touch-typer__text-container">
-	  </div>
+	  <input class="touch-typer__timer" type="text" value="1:00" />
+	  <div class="touch-typer__text-container"></div>
 	</div>
 	<input class="touch-typer__input" type="text" placeholder="type" />
       </div>
     </main>
-    <script src="words.js"></script>
-    <script src="script.js"></script>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+      ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+      ></script>
+
+    <script src="js/words.js"></script>
+    <script src="js/script.js"></script>
   </body>
 </html>

@@ -1,3 +1,4 @@
+const circle = document.querySelector(".background-circle");
 const palabras = rawText
   .split(/\t|\n/)
   .filter((_, i) => ((i + 1) % 2 === 0 ? true : false))
@@ -14,9 +15,13 @@ class Timer {
   #intervalID;
   #htmlElement;
   #seconds;
-  constructor(seconds) {
+  constructor(seconds, callbacks) {
     this.#seconds = seconds;
     this.#htmlElement = timerElement;
+
+    if (callbacks) {
+      this.onComplete = callbacks.onComplete;
+    }
 
     this.#htmlElement.addEventListener("change", this._setTime.bind(this));
   }
@@ -51,6 +56,8 @@ class Timer {
     //remover listener y agregarlo nuevamente
     this.#htmlElement.disabled = false;
     clearInterval(this.#intervalID);
+    
+    if (this.onComplete) this.onComplete();
   }
   reset() {
     //cuando se presione el botón reiniciar del widget
@@ -64,7 +71,9 @@ class TouchTyper {
   constructor(textContainerElement, inputElement, text) {
     this.textToType = new TextArea(textContainerElement, text);
     this.textInput = new TextInput(inputElement);
-    this.#timer = new Timer(60);
+    this.#timer = new Timer(60, {
+      onComplete: this._onComplete.bind(this),
+    });
     this.#isTypingLastWord = false;
 
     this.#currentWord = this.textToType.getNextWordInfo().word;
@@ -73,11 +82,15 @@ class TouchTyper {
       .addEventListener("input", this._checkWord.bind(this));
     this.textInput
       .getElement()
-      .addEventListener("input", this._startTimer.bind(this), { once: true });
+      .addEventListener("input", this._startTyping.bind(this), { once: true });
     this.textToType.paintCurrentWord();
   }
-  _startTimer() {
+  _startTyping() {
     this.#timer.start();
+    this.textToType.getElement().style.overflowY = "hidden";
+  }
+  _onComplete() {
+    this.textToType.getElement().style.overflowY = "auto";
   }
   _checkWord() {
     const typedText = this.textInput.getElement().value;
@@ -184,6 +197,9 @@ class TextArea {
   getCurrentWordIndex() {
     //esto puede llamarse cuando termine el tiempo en el objeto TouchTyper para saber cuántas palabras se escribieron
     return this.#currentWordIndex - 1;
+  }
+  getElement() {
+    return this.htmlElement;
   }
   _isInsideArea(element) {
     const { top: elementTop } = element.getBoundingClientRect();

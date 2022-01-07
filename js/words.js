@@ -17,7 +17,7 @@ const rawText = `1.	De	168.	Ver	334.	Claro
 17.	Su	184.	Tras	350.	Puesto
 18.	Para	185.	Cosas	351.	Ahí
 19.	Es	186.	Fin	352.	Propia
-20.	Al	187.	Ciudad	353.	M
+20.	Al	187.	Ciudad	353.	Mañana
 21.	Lo	188.	He	354.	Libro
 22.	Como	189.	Social	355.	Igual
 23.	Más	190.	Manera	356.	Político
@@ -28,7 +28,7 @@ const rawText = `1.	De	168.	Ver	334.	Claro
 28.	Ha	195.	Muchos	361.	Creo
 29.	Me	196.	Juan	362.	Tengo
 30.	Si	197.	Tipo	363.	Dios
-31.	Sin	198.	Cuatro	364.	C
+31.	Sin	198.	Cuatro	364.	Claro
 32.	Sobre	199.	Dentro	365.	Española
 33.	Este	200.	Nuestro	366.	Condiciones
 34.	Ya	201.	Punto	367.	México

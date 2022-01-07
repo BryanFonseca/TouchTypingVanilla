@@ -23,16 +23,69 @@ span {
   display: inline-block;
 }
 
+.background-circle {
+  background-color: white;
+  position: absolute;
+  z-index: 0;
+  border-radius: 100%;
+}
+
+.background-circle--anim {
+  animation: circle-start 0.5s ease-in-out;
+}
+
+@keyframes circle-start {
+  0% {
+    padding: 40vh;
+    opacity: 0;
+  }
+  25% {
+    opacity: 100%;
+  }
+  50% {
+    padding: 44vh;
+    opacity: 100%;
+  }
+  100% {
+    padding: 40vh;
+    opacity: 0;
+  }
+}
+
 .app-container {
   display: flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   height: 80vh;
-  width: 70vw;
+  width: 65vw;
   background-color: red;
   border-radius: 1em;
   background: linear-gradient(to right, #ff9966, #ff5e62);
   padding: 2em;
+  box-shadow: 0em 2em 2em 1em rgba(0, 0, 0, 10%);
+  overflow: hidden;
+}
+
+.github-profile-triangle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top: 8em solid red;
+  border-right: 8em solid transparent;
+}
+
+.github-profile-corner > .github-profile-button {
+  position: absolute;
+  font-size: 3.5rem;
+  top: 0;
+  left: 0;
+  transform: translate(17%, 17%);
+  cursor: pointer;
+}
+
+.github-profile-corner > .github-profile-button ion-icon {
+  color: #333;
 }
 
 .touch-typer {
@@ -44,10 +97,10 @@ span {
   justify-content: flex-start;
   gap: 1em;
   width: 50%;
-  height: 30%;
+  height: 40%;
 }
 
-.touch-typer__top{
+.touch-typer__top {
   display: flex;
   gap: 0.2em;
   flex-direction: column;
@@ -56,19 +109,21 @@ span {
   min-height: 0;
 }
 
-.touch-typer__top > *{
+.touch-typer__top > * {
   flex-basis: 0;
   flex-grow: 1;
   flex-shrink: 1;
 }
 
-.touch-typer__top > .touch-typer__timer{
-/*   height: 50%; */
+.touch-typer__top > .touch-typer__timer {
+  /*   height: 50%; */
   flex-grow: 25;
   width: 15%;
+  font-size: 2rem;
+  text-align: center;
 }
 
-.touch-typer__top > .touch-typer__text-container{
+.touch-typer__top > .touch-typer__text-container {
   flex-grow: 75;
 }
 
@@ -78,14 +133,11 @@ span {
   font-size: 1.5rem;
   display: flex;
   flex-wrap: wrap;
-/*   flex-basis: content;
-  flex-grow: 0; */
-  /*   gap: 0.1em; */
-  border-radius: 0.2em;
+  /*   border-radius: 0.2em; */
   padding: 0.45em;
   width: 100%;
   background-color: #ddd;
-  border: 1px solid #444;
+/*   border: 1px solid #444; */
   overflow-y: auto;
   position: relative;
 }
@@ -107,6 +159,11 @@ span {
   width: 25%;
   padding: 0.4em;
   text-align: center;
+  /*   background-color: transparent; */
+  border: 1px solid #333;
+  border-radius: 0.5em;
+  /*   border: none; */
+  /*   border-bottom: 1px solid black; */
 }
 
 /* Solo para visualizar el tamaño que ocupa cada palabra  */
