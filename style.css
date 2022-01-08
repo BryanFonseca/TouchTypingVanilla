@@ -102,7 +102,7 @@ span {
 
 .touch-typer__top {
   display: flex;
-  gap: 0.2em;
+/*   gap: 0.2em; */
   flex-direction: column;
   height: 100%;
   min-width: 0;
@@ -121,6 +121,12 @@ span {
   width: 15%;
   font-size: 2rem;
   text-align: center;
+
+  border: none;
+  border-bottom: 1px solid #333;
+  border-top: 1px solid #333;
+  background-color: #ddd;
+  border-top-right-radius: 0.2em;
 }
 
 .touch-typer__top > .touch-typer__text-container {
@@ -149,8 +155,10 @@ span {
 }
 
 .touch-typer__text-container > .word {
+  position: relative;
   /* en px porque a JS le da ansiedad hacer cálculos con decimales  */
   margin: 2px 0.2em;
+/*   border-bottom: 1px solid #333; */
 }
 
 .touch-typer__input {

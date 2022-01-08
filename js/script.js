@@ -90,6 +90,7 @@ class TouchTyper {
     this.textToType.getElement().style.overflowY = "hidden";
   }
   _onComplete() {
+    //se llama el callback pasado al timer cuando este termina
     this.textToType.getElement().style.overflowY = "auto";
   }
   _checkWord() {
