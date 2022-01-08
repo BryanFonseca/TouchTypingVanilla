@@ -1,7 +1,8 @@
 const circle = document.querySelector(".background-circle");
-const palabras = rawText
+let palabras = rawText
   .split(/\t|\n/)
   .filter((_, i) => ((i + 1) % 2 === 0 ? true : false))
+  .map((_, __, arr) => arr[Math.floor(Math.random() * arr.length)])
   .map((word) => word.toLowerCase())
   .join(" ");
 
@@ -21,12 +22,15 @@ class Timer {
 
     if (callbacks) {
       this.onComplete = callbacks.onComplete;
+      this.onSetTime = callbacks.onSetTime;
     }
 
     this.#htmlElement.addEventListener("change", this._setTime.bind(this));
   }
   _setTime() {
     //comprobar por decimales y números en general
+
+    if (this.onSetTime) this.onSetTime();
 
     if (!this.#htmlElement.value.includes(":")) {
       this.#seconds = +this.#htmlElement.value;
@@ -56,7 +60,7 @@ class Timer {
     //remover listener y agregarlo nuevamente
     this.#htmlElement.disabled = false;
     clearInterval(this.#intervalID);
-    
+
     if (this.onComplete) this.onComplete();
   }
   reset() {
@@ -69,10 +73,13 @@ class TouchTyper {
   #timer;
   #isTypingLastWord;
   constructor(textContainerElement, inputElement, text) {
-    this.textToType = new TextArea(textContainerElement, text);
+    this.text = text;
+    this.textContainerElement = textContainerElement;
+    this.textToType = new TextArea(this.textContainerElement, this.text);
     this.textInput = new TextInput(inputElement);
     this.#timer = new Timer(60, {
       onComplete: this._onComplete.bind(this),
+      onSetTime: this._onSetTime.bind(this),
     });
     this.#isTypingLastWord = false;
 
@@ -85,17 +92,33 @@ class TouchTyper {
       .addEventListener("input", this._startTyping.bind(this), { once: true });
     this.textToType.paintCurrentWord();
   }
+  _reset(){
+  }
   _startTyping() {
     this.#timer.start();
     this.textToType.getElement().style.overflowY = "hidden";
   }
+  _onSetTime() {
+    //se genera nuevo texto
+    //se hace scroll hasta arriba
+    palabras = palabras
+      .split(/\t|\n/)
+      .map((_, __, arr) => arr[Math.floor(Math.random() * arr.length)]);
+    this.textToType = palabras;
+    this.textToType = new TextArea(this.textContainerElement, this.text);
+  }
   _onComplete() {
     //se llama el callback pasado al timer cuando este termina
+    this.textInput
+      .getElement()
+      .removeEventListener("input", this._startTyping.bind(this));
+    this.textInput
+      .getElement()
+      .addEventListener("input", this._startTyping.bind(this), { once: true });
     this.textToType.getElement().style.overflowY = "auto";
   }
   _checkWord() {
     const typedText = this.textInput.getElement().value;
-
     //hay algún espacio
     /*     const anySpace = typedText.includes(' '); */
 
@@ -231,6 +254,7 @@ class TextArea {
     //6 píxeles menos de scroll
     this.#currentScroll += topWordOutOfArea - topContainer - 6;
 
+    console.log(this.htmlElement);
     this.htmlElement.scroll({
       top: this.#currentScroll,
       behavior: "smooth",
@@ -247,7 +271,7 @@ class TextInput {
   }
 }
 
-const textContainer = document.querySelector(".touch-typer__text-container");
+const textContainer = document.querySelector(".touch-typer__text");
 const inputElement = document.querySelector(".touch-typer__input");
 const app = new App();
 //El scroll va a estar desactivado mientras está corriendo el tiempo

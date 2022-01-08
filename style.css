@@ -96,12 +96,13 @@ span {
   align-items: center;
   justify-content: flex-start;
   gap: 1em;
-  width: 50%;
-  height: 40%;
+  width: 56%;
+  height: 37%;
 }
 
 .touch-typer__top {
   display: flex;
+  justify-content: flex-end;
 /*   gap: 0.2em; */
   flex-direction: column;
   height: 100%;
@@ -122,6 +123,8 @@ span {
   font-size: 2rem;
   text-align: center;
 
+  max-height: 1.4em;
+
   border: none;
   border-bottom: 1px solid #333;
   border-top: 1px solid #333;
@@ -134,18 +137,28 @@ span {
 }
 
 .touch-typer__text-container {
-  min-width: 0;
-  min-height: 0;
-  font-size: 1.5rem;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  min-width: 0;
+  min-height: 2.4em;
+  max-height: 5.4em;
+  font-size: 1.5rem;
   /*   border-radius: 0.2em; */
   padding: 0.45em;
   width: 100%;
   background-color: #ddd;
 /*   border: 1px solid #444; */
-  overflow-y: auto;
+/*   overflow-y: auto; */
   position: relative;
+}
+
+.touch-typer__text{
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  height: 100%;
+  width: 96%;
+/*   border: 1px solid black; */
 }
 
 .break-area {
@@ -154,112 +167,105 @@ span {
   /*   background-color: rgba(255, 255, 255, 50%); */
 }
 
-.touch-typer__text-container > .word {
+.touch-typer__text-container .word {
   position: relative;
   /* en px porque a JS le da ansiedad hacer cálculos con decimales  */
-  margin: 2px 0.2em;
-/*   border-bottom: 1px solid #333; */
+  margin: 4px 0.2em;
+  /*   border-bottom: 1px solid #333; */
 }
 
 .touch-typer__input {
+  font-family: consolas;
   font-size: 1.2rem;
   display: block;
   width: 25%;
   padding: 0.4em;
   text-align: center;
-  /*   background-color: transparent; */
-  border: 1px solid #333;
-  border-radius: 0.5em;
-  /*   border: none; */
-  /*   border-bottom: 1px solid black; */
+/*   border: 1px solid #333; */
+  border: none;
+  border-bottom: 2px solid #333;
+  border-radius: 0.2em;
+  box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 50%);
 }
 
-/* Solo para visualizar el tamaño que ocupa cada palabra  */
-/* .touch-typer__text-container > .word:nth-child(1){
-background-color: red;
-}
-.touch-typer__text-container > .word:nth-child(6){
-background-color: red;
-} */
-
-/* Modifier classes */
-.word {
-  position: relative;
-  min-width: 0;
-}
-.word--current::after {
-  content: "";
-  top: 0;
-  left: 0;
-  height: 110%;
-  width: calc(100% + 0.3em);
-  border-radius: 0.3em;
-  transform: translate(-0.15em, -5%);
-  position: absolute;
-  background-color: rgba(100, 100, 100, 25%) !important;
-}
-.char--correct {
-  color: green !important;
-  animation: pulse 0.2s;
-  transform-origin: center bottom;
-}
-.char--wrong {
-  color: red !important;
-  /*   animation: correct-fade-in 0.5s ease-in; */
-  animation-fill-mode: forwards;
-}
-
-/* SCROLL */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #aaa;
-  border-radius: 0px;
-  transition: all 0.5s;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-  border-radius: 4px;
-}
-
-@keyframes correct-fade-out {
-  0% {
-    color: green;
+  /* Modifier classes */
+  .word {
+    position: relative;
+    min-width: 0;
   }
-  50% {
-    transform: translate(-0.2em, -0.4em) rotate(-40deg);
+  .word--current::after {
+    content: "";
+    top: 0;
+    left: 0;
+    height: 110%;
+    width: calc(100% + 0.3em);
+    border-radius: 0.3em;
+    transform: translate(-0.15em, -5%);
+    position: absolute;
+    background-color: rgba(100, 100, 100, 25%) !important;
   }
-  100% {
-    color: transparent;
-    transform: translate(-0.4em, -0.3em) rotate(-80deg);
+  .char--correct {
+    color: green !important;
+    animation: pulse 0.2s;
+    transform-origin: center bottom;
   }
-}
-@keyframes correct-fade-in {
-  100% {
-    color: green;
-  }
-  50% {
-    transform: translate(-0.2em, -0.4em) rotate(-40deg);
-  }
-  0% {
-    color: transparent;
-    transform: translate(-0.4em, -0.3em) rotate(-80deg);
-  }
-}
-
-@keyframes pulse {
-  from {
-    transform: scale3d(1, 1, 1);
+  .char--wrong {
+    color: red !important;
+    /*   animation: correct-fade-in 0.5s ease-in; */
+    animation-fill-mode: forwards;
   }
 
-  50% {
-    transform: scale3d(1.1, 1.1, 1.1);
+  /* SCROLL */
+  ::-webkit-scrollbar {
+    width: 6px;
   }
 
-  to {
-    transform: scale3d(1, 1, 1);
+  ::-webkit-scrollbar-thumb {
+    background: #aaa;
+    border-radius: 0px;
+    transition: all 0.5s;
   }
-}
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+  }
+
+  @keyframes correct-fade-out {
+    0% {
+      color: green;
+    }
+    50% {
+      transform: translate(-0.2em, -0.4em) rotate(-40deg);
+    }
+    100% {
+      color: transparent;
+      transform: translate(-0.4em, -0.3em) rotate(-80deg);
+    }
+  }
+  @keyframes correct-fade-in {
+    100% {
+      color: green;
+    }
+    50% {
+      transform: translate(-0.2em, -0.4em) rotate(-40deg);
+    }
+    0% {
+      color: transparent;
+      transform: translate(-0.4em, -0.3em) rotate(-80deg);
+    }
+  }
+
+  @keyframes pulse {
+    from {
+      transform: scale3d(1, 1, 1);
+    }
+
+    50% {
+      transform: scale3d(1.1, 1.1, 1.1);
+    }
+
+    to {
+      transform: scale3d(1, 1, 1);
+    }
+  }
