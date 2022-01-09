@@ -1,6 +1,10 @@
+'use strict';
 const circle = document.querySelector(".background-circle");
 class App {
   #touchTyper = new TouchTyper(textContainerElement, inputElement, resetButtonElement);
+  getTT(){
+    return this.#touchTyper;
+  }
 }
 
 class TouchTyper {
@@ -78,10 +82,19 @@ class TouchTyper {
     //Usar función arrow cuando se quiera el this apuntando a la instancia y se necesite que la función sea la misma (mismo espacio en memoria)
     //puede conseguirse definir el this usando bind, pero eso crea funciones con espacios de memoria diferentes, así que si se agregan varias veces, se duplicarán los listeners
     //
+
+    //REALIZAR pruebas llamando a esta función de diferentes maneras
+    //edit: la función es llamada como regular function call, y en un arrow function eso apunta a undefined
     console.log(this);
     this.#timer.start();
     this.textToType.scrollToTop();
     this.textToType.getElement().style.overflowY = "hidden";
+  }
+
+  _test = () => {
+    //NO se agrega al prototipo
+    //Debido a que no está en el prototipo, forma parte del objeto final, y al llamarse como regular function call, se usa el this del 
+    console.log(this);
   }
   _onSetTime() {
     //se llama cuando: se establece un valor nuevo en el timer

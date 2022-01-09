@@ -1,5 +1,5 @@
 :root {
-  font-family: 'inter', sans-serif;
+  font-family: "inter", sans-serif;
   color: #333;
   --main-color: #333;
   --main-color-lighter: #444;
@@ -7,369 +7,377 @@
 }
 
 *,
-  *::after,
-  *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-  body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-    background-color: #ccc;
-  }
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #ccc;
+}
 
-  span {
-    display: inline-block;
-  }
+span {
+  display: inline-block;
+}
 
-  .background-circle {
-    background-color: white;
-    position: absolute;
-    z-index: 0;
-    border-radius: 100%;
-  }
+.background-circle {
+  background-color: white;
+  position: absolute;
+  z-index: 0;
+  border-radius: 100%;
+}
 
-  .background-circle--anim {
-    animation: circle-start 0.5s ease-in-out;
-  }
+.background-circle--anim {
+  animation: circle-start 0.5s ease-in-out;
+}
 
-  @keyframes circle-start {
-    0% {
-      padding: 40vh;
-      opacity: 0;
-    }
-    25% {
-      opacity: 100%;
-    }
-    50% {
-      padding: 44vh;
-      opacity: 100%;
-    }
-    100% {
-      padding: 40vh;
-      opacity: 0;
-    }
+@keyframes circle-start {
+  0% {
+    padding: 40vh;
+    opacity: 0;
   }
-
-  .app-container {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-    width: 65vw;
-    background-color: red;
-    border-radius: 1em;
-    background: linear-gradient(to right, #ff9966, #ff5e62);
-    padding: 2em;
-    box-shadow: 0em 2em 2em 1em rgba(0, 0, 0, 10%);
-    overflow: hidden;
-  }
-
-  .github-profile-triangle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-top: 8em solid #37392e;
-    /* 3B1C32 */
-    border-right: 8em solid transparent;
-  }
-
-  .github-profile-corner > .github-profile-button {
-    position: absolute;
-    font-size: 3.5rem;
-    top: 0;
-    left: 0;
-    transform: translate(17%, 17%);
-    cursor: pointer;
-  }
-
-  .github-profile-corner > .github-profile-button ion-icon {
-    color: #fff;
-  }
-
-  .touch-typer {
-    position: relative;
-    font-size: 1.2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1em;
-    width: 56%;
-    height: 37%;
-  }
-
-  .touch-typer__top {
-    display: flex;
-    justify-content: flex-end;
-    /*   gap: 0.2em; */
-    flex-direction: column;
-    height: 100%;
-    min-width: 0;
-    min-height: 0;
-  }
-
-  .touch-typer__top > * {
-    flex-basis: 0;
-    flex-grow: 1;
-    flex-shrink: 1;
-  }
-
-  .touch-typer__top > .touch-typer__timer {
-    /*   height: 50%; */
-    flex-grow: 25;
-    width: 15%;
-    font-size: 2rem;
-    text-align: center;
-
-    max-height: 1.4em;
-
-    border: none;
-    border-bottom: 1px solid #333;
-    border-top: 1px solid #333;
-    background-color: #ddd;
-    border-top-right-radius: 0.2em;
-  }
-
-  .touch-typer__top > .touch-typer__text-container {
-    flex-grow: 75;
-  }
-
-  .touch-typer__text-container {
-    display: flex;
-    justify-content: center;
-    min-width: 0;
-    min-height: 2.4em;
-    max-height: 5.4em;
-    font-size: 1.5rem;
-    /*   border-radius: 0.2em; */
-    padding: 0.45em;
-    width: 100%;
-    background-color: #ddd;
-    /*   border: 1px solid #444; */
-    /*   overflow-y: auto; */
-    position: relative;
-  }
-
-  .touch-typer__text {
-    display: flex;
-    flex-wrap: wrap;
-    overflow-y: auto;
-    height: 100%;
-    width: 96%;
-    /*   border: 1px solid black; */
-  }
-
-  .break-area {
-    position: absolute;
-    top: 0;
-    /*   background-color: rgba(255, 255, 255, 50%); */
-  }
-
-  .touch-typer__text-container .word {
-    position: relative;
-    /* en px porque a JS le da ansiedad hacer cálculos con decimales  */
-    margin: 4px 0.2em;
-    /*   border-bottom: 1px solid #333; */
-  }
-
-  .touch-typer__bottom {
-    display: flex;
-    gap: 0.3em;
-    width: 25%;
-  }
-
-  .touch-typer__input,
-  .touch-typer__reset-button {
-    border: none;
-    /*   width: 100%; */
-    border-bottom: 2px solid #333;
-    border-radius: 0.2em;
-    box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 50%);
-  }
-
-  .touch-typer__input {
-    min-width: 0;
-    flex-basis: 0;
-    flex-grow: 70;
-    flex-shrink: 1;
-    font-family: consolas;
-    background-color: #eee;
-    font-size: 1.2rem;
-    display: block;
-    padding: 0.4em;
-    text-align: center;
-    /*   border: 1px solid #333; */
-  }
-  .touch-typer__reset-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 0;
-    flex-basis: 0;
-    flex-grow: 30;
-    flex-shrink: 1;
-    cursor: pointer;
-  }
-  .touch-typer__reset-button > ion-icon {
-    font-size: 200%;
-    transform: scaleX(-100%);
-  }
-
-  .touch-typer__input:disabled {
-    background-color: rgba(255, 255, 255, 55%);
-    cursor: text;
-  }
-
-  /* Modifier classes */
-  .word {
-    position: relative;
-    min-width: 0;
-  }
-  .word--current::after {
-    content: "";
-    top: 0;
-    left: 0;
-    height: 110%;
-    width: calc(100% + 0.3em);
-    border-radius: 0.3em;
-    transform: translate(-0.15em, -5%);
-    position: absolute;
-    background-color: rgba(100, 100, 100, 25%) !important;
-  }
-  .char--correct {
-    color: green !important;
-    animation: pulse 0.2s;
-    transform-origin: center bottom;
-  }
-  .char--wrong {
-    color: red !important;
-    /*   animation: correct-fade-in 0.5s ease-in; */
-    animation-fill-mode: forwards;
-  }
-
-  /* SCROLL */
-  ::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #aaa;
-    border-radius: 0px;
-    transition: all 0.5s;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 4px;
-  }
-
-  @keyframes correct-fade-out {
-    0% {
-      color: green;
-    }
-    50% {
-      transform: translate(-0.2em, -0.4em) rotate(-40deg);
-    }
-    100% {
-      color: transparent;
-      transform: translate(-0.4em, -0.3em) rotate(-80deg);
-    }
-  }
-  @keyframes correct-fade-in {
-    100% {
-      color: green;
-    }
-    50% {
-      transform: translate(-0.2em, -0.4em) rotate(-40deg);
-    }
-    0% {
-      color: transparent;
-      transform: translate(-0.4em, -0.3em) rotate(-80deg);
-    }
-  }
-
-  @keyframes pulse {
-    from {
-      transform: scale3d(1, 1, 1);
-    }
-
-    50% {
-      transform: scale3d(1.1, 1.1, 1.1);
-    }
-
-    to {
-      transform: scale3d(1, 1, 1);
-    }
-  }
-
-  .invisible {
-    display: none;
-    opacity: 0%;
-  }
-
-  .modal {
+  25% {
     opacity: 100%;
-    transition: opacity 0.5s;
+  }
+  50% {
+    padding: 44vh;
+    opacity: 100%;
+  }
+  100% {
+    padding: 40vh;
+    opacity: 0;
+  }
+}
+
+.app-container {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 65vw;
+  background-color: red;
+  border-radius: 1em;
+  background: linear-gradient(to right, #ff9966, #ff5e62);
+  padding: 2em;
+  box-shadow: 0em 2em 2em 1em rgba(0, 0, 0, 10%);
+  overflow: hidden;
+}
+
+.github-profile-triangle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-top: 8em solid #37392e;
+  /* 3B1C32 */
+  border-right: 8em solid transparent;
+}
+
+.github-profile-corner > .github-profile-button {
+  position: absolute;
+  font-size: 3.5rem;
+  top: 0;
+  left: 0;
+  transform: translate(17%, 17%);
+  cursor: pointer;
+}
+
+.github-profile-corner > .github-profile-button ion-icon {
+  color: #fff;
+}
+
+.touch-typer {
+  position: relative;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1em;
+  width: 70%;
+  height: 40%;
+}
+
+.touch-typer__top {
+  display: flex;
+  justify-content: flex-end;
+  /*   gap: 0.2em; */
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+}
+
+.touch-typer__top > * {
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.touch-typer__top > .touch-typer__timer {
+  /* posiblemente temporal */
+  min-height: 1em;
+
+  /*   height: 50%; */
+  flex-grow: 25;
+  width: 15%;
+  font-size: 2rem;
+  text-align: center;
+
+  max-height: 1.4em;
+
+  border: none;
+  border-bottom: 1px solid #333;
+  border-top: 1px solid #333;
+  background-color: #ddd;
+  border-top-right-radius: 0.2em;
+}
+
+.touch-typer__top > .touch-typer__text-container {
+  flex-grow: 75;
+}
+
+.touch-typer__text-container {
+  display: flex;
+  justify-content: center;
+  min-width: 0;
+  min-height: 2.4em;
+  /* Se muestran 4 líneas */
+  /*     max-height: 7.1em; */
+
+  /* Se muestran 3 líneas */
+  /* desactivado temporalmente */
+  /*     max-height: 5.4em; */
+  font-size: 1.5rem;
+  /*   border-radius: 0.2em; */
+  padding: 0.45em;
+  width: 100%;
+  background-color: #ddd;
+  /*   border: 1px solid #444; */
+  /*   overflow-y: auto; */
+  position: relative;
+}
+
+.touch-typer__text {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: auto;
+  height: 100%;
+  width: 96%;
+  /*   border: 1px solid black; */
+}
+
+.break-area {
+  position: absolute;
+  top: 0;
+  /*   background-color: rgba(255, 255, 255, 50%); */
+}
+
+.touch-typer__text-container .word {
+  position: relative;
+  /* en px porque a JS le da ansiedad hacer cálculos con decimales  */
+  margin: 4px 0.2em;
+  /*   border-bottom: 1px solid #333; */
+}
+
+.touch-typer__bottom {
+  display: flex;
+  gap: 0.3em;
+  width: 25%;
+}
+
+.touch-typer__input,
+.touch-typer__reset-button {
+  border: none;
+  /*   width: 100%; */
+  border-bottom: 2px solid #333;
+  border-radius: 0.2em;
+  box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 50%);
+}
+
+.touch-typer__input {
+  min-width: 0;
+  flex-basis: 0;
+  flex-grow: 70;
+  flex-shrink: 1;
+  font-family: consolas;
+  background-color: #eee;
+  font-size: 1.2rem;
+  display: block;
+  padding: 0.4em;
+  text-align: center;
+  /*   border: 1px solid #333; */
+}
+.touch-typer__reset-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  flex-basis: 0;
+  flex-grow: 30;
+  flex-shrink: 1;
+  cursor: pointer;
+}
+.touch-typer__reset-button > ion-icon {
+  font-size: 200%;
+  transform: scaleX(-100%);
+}
+
+.touch-typer__input:disabled {
+  background-color: rgba(255, 255, 255, 55%);
+  cursor: text;
+}
+
+/* Modifier classes */
+.word {
+  position: relative;
+  min-width: 0;
+}
+.word--current::after {
+  content: "";
+  top: 0;
+  left: 0;
+  height: 110%;
+  width: calc(100% + 0.3em);
+  border-radius: 0.3em;
+  transform: translate(-0.15em, -5%);
+  position: absolute;
+  background-color: rgba(100, 100, 100, 25%) !important;
+}
+.char--correct {
+  color: green !important;
+  animation: pulse 0.2s;
+  transform-origin: center bottom;
+}
+.char--wrong {
+  color: red !important;
+  /*   animation: correct-fade-in 0.5s ease-in; */
+  animation-fill-mode: forwards;
+}
+
+/* SCROLL */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 0px;
+  transition: all 0.5s;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+@keyframes correct-fade-out {
+  0% {
+    color: green;
+  }
+  50% {
+    transform: translate(-0.2em, -0.4em) rotate(-40deg);
+  }
+  100% {
+    color: transparent;
+    transform: translate(-0.4em, -0.3em) rotate(-80deg);
+  }
+}
+@keyframes correct-fade-in {
+  100% {
+    color: green;
+  }
+  50% {
+    transform: translate(-0.2em, -0.4em) rotate(-40deg);
+  }
+  0% {
+    color: transparent;
+    transform: translate(-0.4em, -0.3em) rotate(-80deg);
+  }
+}
+
+@keyframes pulse {
+  from {
+    transform: scale3d(1, 1, 1);
   }
 
-  .modal-backdrop {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.6);
-    z-index: 1;
+  50% {
+    transform: scale3d(1.1, 1.1, 1.1);
   }
 
-  .modal-body {
-    position: fixed;
-    top: 50%;
-    right: 30%;
-    left: 30%;
-    padding: 2em 2.5em;
-    overflow: auto;
-    transform: translate(0, -50%);
-    border-radius: 0.9em;
-    background-color: var(--main-color);
-    color: var(--light-gray);
-    z-index: 2;
+  to {
+    transform: scale3d(1, 1, 1);
   }
+}
 
-  .modal-body h2 {
-    margin-bottom: 0.8em;
-  }
+.invisible {
+  display: none;
+  opacity: 0%;
+}
 
-  .modal-body p {
-    line-height: 1.5;
-  }
+.modal {
+  opacity: 100%;
+  transition: opacity 0.5s;
+}
 
-  .modal-close {
-    cursor: pointer;
-    border: none;
-  }
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
 
-  .modal-close {
-    position: absolute;
-    right: 3.5%;
-    top: 8%;
-    height: 0.9em;
-    width: 0.9em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2.5rem;
-    /*   border-radius: 50%; */
-    color: var(--mid-gray);
-    background-color: transparent;
-  }
+.modal-body {
+  position: fixed;
+  top: 50%;
+  right: 30%;
+  left: 30%;
+  padding: 2em 2.5em;
+  overflow: auto;
+  transform: translate(0, -50%);
+  border-radius: 0.9em;
+  background-color: var(--main-color);
+  color: var(--light-gray);
+  z-index: 2;
+}
 
-  .modal-close:hover {
-    color: #bbb;
-  }
+.modal-body h2 {
+  margin-bottom: 0.8em;
+}
+
+.modal-body p {
+  line-height: 1.5;
+}
+
+.modal-close {
+  cursor: pointer;
+  border: none;
+}
+
+.modal-close {
+  position: absolute;
+  right: 3.5%;
+  top: 8%;
+  height: 0.9em;
+  width: 0.9em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  /*   border-radius: 50%; */
+  color: var(--mid-gray);
+  background-color: transparent;
+}
+
+.modal-close:hover {
+  color: #bbb;
+}
