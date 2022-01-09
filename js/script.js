@@ -26,7 +26,7 @@ class TouchTyper {
       .addEventListener("input", this._checkWord.bind(this));
     this.textInput
       .getElement()
-      .addEventListener("input", this._startTyping.bind(this), { once: true });
+      .addEventListener("input", this._startTyping, { once: true });
     this.textToType.paintCurrentWord();
   }
   _generateRandomText(){
@@ -44,22 +44,41 @@ class TouchTyper {
     this._reset();
     this.textInput.getElement().disabled = false;
     this.textInput.getElement().focus();
+    this.textToType.getElement().style.overflowY = "auto";
+
+    //Un evento repetido no se puede añadir varias veces, repetido quiere decir que el callback tiene la misma referencia
+
+    //no se está añadiendo al input, se anulan
+/*     this.textInput
+      .getElement()
+      .removeEventListener("input", prueba); */
+    this.textInput
+      .getElement()
+      .addEventListener("input", this._startTyping, {once: true});
   }
   _reset(){
     this.textToType.reset(this._generateRandomText());
     this.#isTypingLastWord = false;
     this.#currentWord = this.textToType.getNextWordInfo().word;
-    this.textInput
+/*     this.textInput
       .getElement()
       .removeEventListener("input", this._checkWord.bind(this));
     this.textInput
       .getElement()
-      .addEventListener("input", this._checkWord.bind(this));
+      .addEventListener("input", this._checkWord.bind(this)); */
     this.textToType.paintCurrentWord();
     this.textInput.getElement().value = '';
   }
-  _startTyping() {
-    console.log(this.textInput)
+  _startTyping = () => {
+    //Se usa como listener
+    //Al usar una arrow function, el this apunta a esta instancia
+    //Se podría usar una función normal, no se repetirían (siempre y cuando no se use bind(this) porque eso crea una función con direcciones de memoria distintas, por lo que se seguirían añadiendo como listeners, ya que son diferentes, no se duplican los listeners que son iguales y que sean iguales significa que sus callbacks tienen la misma referencia)
+    //Si fuera una función normal el this apuntaría al objeto que gatilla el evento
+    //
+    //Usar función arrow cuando se quiera el this apuntando a la instancia y se necesite que la función sea la misma (mismo espacio en memoria)
+    //puede conseguirse definir el this usando bind, pero eso crea funciones con espacios de memoria diferentes, así que si se agregan varias veces, se duplicarán los listeners
+    //
+    console.log(this);
     this.#timer.start();
     this.textToType.scrollToTop();
     this.textToType.getElement().style.overflowY = "hidden";
@@ -81,12 +100,14 @@ class TouchTyper {
   }
   _onComplete() {
     //se llama el callback pasado al timer cuando este termina
+    //esto tiene sentido porque para este punto ya no existe este listener
+    //nunca estuve removiendo este listener 
+/*     this.textInput
+      .getElement()
+      .removeEventListener("input", this._startTyping.bind(this)); */
     this.textInput
       .getElement()
-      .removeEventListener("input", this._startTyping.bind(this));
-    this.textInput
-      .getElement()
-      .addEventListener("input", this._startTyping.bind(this), { once: true });
+      .addEventListener("input", this._startTyping, { once: true });
     this.textToType.getElement().style.overflowY = "auto";
     this.textInput.getElement().disabled = true;
   }

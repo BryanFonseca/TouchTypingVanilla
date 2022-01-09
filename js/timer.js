@@ -17,6 +17,9 @@ class Timer {
     this.#htmlElement.addEventListener("change", this._setTime.bind(this));
     this._updateTimerValue();
   }
+  getSeconds(){
+    return this.#seconds;
+  }
   _setTime() {
     //comprobar por decimales y números en general
 
@@ -43,6 +46,7 @@ class Timer {
     this.#htmlElement.value = timeText;
   }
   start() {
+/*     console.log(this); */
     this.#htmlElement.disabled = true;
     this.#intervalID = setInterval(this._tick.bind(this), 1000);
     this._tick();
@@ -62,7 +66,7 @@ class Timer {
     clearInterval(this.#intervalID);
   }
   reset() {
-    console.log(this);
+/*     console.log(this); */
     //cuando se presione el botón reiniciar del widget
     this.stop();
     this.#seconds = 60;
