@@ -175,19 +175,46 @@ span {
   /*   border-bottom: 1px solid #333; */
 }
 
+.touch-typer__bottom{
+  display: flex;
+  gap: .3em;
+  width: 25%;
+}
+
+.touch-typer__input, .touch-typer__reset-button{
+  border: none;
+/*   width: 100%; */
+  border-bottom: 2px solid #333;
+  border-radius: 0.2em;
+  box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 50%);
+}
+
 .touch-typer__input {
+  min-width: 0;
+  flex-basis: 0;
+  flex-grow: 70;
+  flex-shrink: 1;
   font-family: consolas;
   background-color: #eee;
   font-size: 1.2rem;
   display: block;
-  width: 25%;
   padding: 0.4em;
   text-align: center;
 /*   border: 1px solid #333; */
-  border: none;
-  border-bottom: 2px solid #333;
-  border-radius: 0.2em;
-  box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 50%);
+}
+.touch-typer__reset-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+  flex-basis: 0;
+  flex-grow: 30;
+  flex-shrink: 1;
+  cursor: pointer;
+}
+.touch-typer__reset-button > ion-icon{
+  font-size: 200%;
+  transform: scaleX(-100%);
 }
 
 .touch-typer__input:disabled{

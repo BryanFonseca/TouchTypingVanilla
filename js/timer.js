@@ -33,14 +33,13 @@ class Timer {
       this.#seconds = this.#originalSeconds = minute * 60 + second;
     }
     this.#seconds = Math.floor(this.#seconds);
-    if (!Number.isFinite(this.#seconds)) this.#seconds = 60;
+    if (!Number.isFinite(this.#seconds) || this.#seconds < 1) this.#seconds = 60;
     this._updateTimerValue();
   }
   _updateTimerValue() {
     const minute = String(Math.floor(this.#seconds / 60));
     const second = String(this.#seconds % 60).padStart(2, "0");
     const timeText = minute + ":" + second;
-    console.log(timeText);
     this.#htmlElement.value = timeText;
   }
   start() {
@@ -49,27 +48,25 @@ class Timer {
     this._tick();
   }
   _tick() {
-    console.log(this);
-    /*     const minute = String(Math.floor(this.#seconds / 60));
-    const second = String(this.#seconds % 60).padStart(2, "0");
-    const timeText = minute + ":" + second;
-    this.#htmlElement.value = timeText; */
     this._updateTimerValue();
 
     if (this.#seconds <= 0) {
       this.stop();
+      if (this.onComplete) this.onComplete();
       return;
     }
     this.#seconds--;
   }
   stop() {
-    //remover listener y agregarlo nuevamente
     this.#htmlElement.disabled = false;
     clearInterval(this.#intervalID);
-
-    if (this.onComplete) this.onComplete();
   }
   reset() {
+    console.log(this);
     //cuando se presione el botón reiniciar del widget
+    this.stop();
+    this.#seconds = 60;
+    this.#seconds = 60;
+    this._updateTimerValue();
   }
 }

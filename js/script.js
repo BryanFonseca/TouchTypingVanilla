@@ -1,17 +1,19 @@
 const circle = document.querySelector(".background-circle");
 class App {
-  #touchTyper = new TouchTyper(textContainerElement, inputElement);
+  #touchTyper = new TouchTyper(textContainerElement, inputElement, resetButtonElement);
 }
 
 class TouchTyper {
   #currentWord;
   #timer;
   #isTypingLastWord;
-  constructor(textContainerElement, inputElement, time = 60) {
+  constructor(textContainerElement, inputElement, resetButtonElement, time = 60) {
     this.text = this._generateRandomText();
-    this.textContainerElement = textContainerElement;
-    this.textToType = new TextContainer(this.textContainerElement, this.text);
+    this.textToType = new TextContainer(textContainerElement, this.text);
     this.textInput = new TextInput(inputElement);
+    this.resetButton = new Reset(resetButtonElement, {
+      onReset: this._onReset.bind(this),
+    });
     this.#timer = new Timer(time, {
       onComplete: this._onComplete.bind(this),
       onSetTime: this._onSetTime.bind(this),
@@ -36,6 +38,13 @@ class TouchTyper {
       .join(" ");
     return palabras;
   }
+  
+  _onReset(){
+    this.#timer.reset();
+    this._reset();
+    this.textInput.getElement().disabled = false;
+    this.textInput.getElement().focus();
+  }
   _reset(){
     this.textToType.reset(this._generateRandomText());
     this.#isTypingLastWord = false;
@@ -50,6 +59,7 @@ class TouchTyper {
     this.textInput.getElement().value = '';
   }
   _startTyping() {
+    console.log(this.textInput)
     this.#timer.start();
     this.textToType.scrollToTop();
     this.textToType.getElement().style.overflowY = "hidden";
@@ -125,6 +135,18 @@ class TouchTyper {
   _normalMode() {}
 }
 
+class Reset{
+  constructor(htmlElement, callbacks){
+    if(callbacks){
+      this.onReset = callbacks.onReset;
+    }
+    htmlElement.addEventListener('click', this.reset.bind(this));
+  }
+  reset(){
+    if(this.onReset) this.onReset();
+  }
+}
+
 class TextInput {
   constructor(htmlElement) {
     this.htmlElement = htmlElement;
@@ -137,4 +159,5 @@ class TextInput {
 const timerElement = document.querySelector(".touch-typer__timer");
 const textContainerElement = document.querySelector(".touch-typer__text");
 const inputElement = document.querySelector(".touch-typer__input");
+const resetButtonElement = document.querySelector('.touch-typer__reset-button');
 const app = new App();
