@@ -192,6 +192,7 @@ span {
 
 .touch-typer__input:disabled{
   background-color: rgba(255, 255, 255, 55%);
+  cursor: text;
 }
 
   /* Modifier classes */
