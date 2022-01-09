@@ -45,6 +45,7 @@ class Timer {
     this._tick();
   }
   _tick() {
+    console.log('tick');
     const minute = String(Math.floor(this.#seconds / 60));
     const second = String(this.#seconds % 60).padStart(2, "0");
     const timeText = minute + ":" + second;
@@ -101,11 +102,11 @@ class TouchTyper {
   _onSetTime() {
     //se genera nuevo texto
     //se hace scroll hasta arriba
-    palabras = palabras
+/*     palabras = palabras
       .split(/\t|\n/)
       .map((_, __, arr) => arr[Math.floor(Math.random() * arr.length)]);
     this.textToType = palabras;
-    this.textToType = new TextArea(this.textContainerElement, this.text);
+    this.textToType = new TextArea(this.textContainerElement, this.text); */
   }
   _onComplete() {
     //se llama el callback pasado al timer cuando este termina
@@ -116,6 +117,7 @@ class TouchTyper {
       .getElement()
       .addEventListener("input", this._startTyping.bind(this), { once: true });
     this.textToType.getElement().style.overflowY = "auto";
+    this.textInput.getElement().disabled = true;
   }
   _checkWord() {
     const typedText = this.textInput.getElement().value;

@@ -51,7 +51,7 @@ const rawText = `1.	De	168.	Ver	334.	Claro
 51.	Mi	218.	Usted	384.	Campo
 52.	Porque	219.	Estados	385.	Buen
 53.	Qué	220.	Hizo	386.	Hubiera
-54.	Sólo	221.	Nadie	387.	Saber
+54.	Solamente	221.	Nadie	387.	Saber
 55.	Han	222.	Países	388.	Obras
 56.	Yo	223.	Horas	389.	Razón
 57.	Hay	224.	Posible	390.	Ex

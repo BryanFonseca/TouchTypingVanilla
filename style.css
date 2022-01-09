@@ -71,7 +71,8 @@ span {
   position: absolute;
   top: 0;
   left: 0;
-  border-top: 8em solid red;
+  border-top: 8em solid #37392E;
+/* 3B1C32 */
   border-right: 8em solid transparent;
 }
 
@@ -85,7 +86,7 @@ span {
 }
 
 .github-profile-corner > .github-profile-button ion-icon {
-  color: #333;
+  color: #fff;
 }
 
 .touch-typer {
@@ -176,6 +177,7 @@ span {
 
 .touch-typer__input {
   font-family: consolas;
+  background-color: #eee;
   font-size: 1.2rem;
   display: block;
   width: 25%;
@@ -186,6 +188,10 @@ span {
   border-bottom: 2px solid #333;
   border-radius: 0.2em;
   box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 50%);
+}
+
+.touch-typer__input:disabled{
+  background-color: rgba(255, 255, 255, 55%);
 }
 
   /* Modifier classes */
