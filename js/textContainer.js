@@ -14,9 +14,6 @@ class TextContainer {
     this.#currentWordIndex = 0;
     this.#currentScroll = 0;
     this.scrollToTop();
-
-    console.log(this);
-
     //despintar palabras
   }
   paintCurrentWord() {
@@ -71,6 +68,12 @@ class TextContainer {
   getElement() {
     return this.htmlElement;
   }
+  scrollToTop(){
+    this.htmlElement.scroll({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
   _isInsideArea(element) {
     const { top: elementTop } = element.getBoundingClientRect();
     const firstWord = document.querySelector(".word");
@@ -104,15 +107,8 @@ class TextContainer {
     //6 píxeles menos de scroll
     this.#currentScroll += topWordOutOfArea - topContainer - 6;
 
-    console.log(this.htmlElement);
     this.htmlElement.scroll({
       top: this.#currentScroll,
-      behavior: "smooth",
-    });
-  }
-  scrollToTop(){
-    this.htmlElement.scroll({
-      top: 0,
       behavior: "smooth",
     });
   }

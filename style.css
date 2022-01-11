@@ -74,14 +74,14 @@ span {
   position: absolute;
   top: 0;
   left: 0;
-  border-top: 8em solid #37392e;
+  border-top: 9em solid #37392e;
   /* 3B1C32 */
-  border-right: 8em solid transparent;
+  border-right: 9em solid transparent;
 }
 
 .github-profile-corner > .github-profile-button {
   position: absolute;
-  font-size: 3.5rem;
+  font-size: 3.9rem;
   top: 0;
   left: 0;
   transform: translate(17%, 17%);
@@ -195,10 +195,12 @@ span {
 .touch-typer__input,
 .touch-typer__reset-button {
   border: none;
-  /*   width: 100%; */
   border-bottom: 2px solid #333;
   border-radius: 0.2em;
   box-shadow: 0 0.1em 0.5em rgba(0, 0, 0, 50%);
+  background-color: #eee;
+
+  transition: all 0.2s;
 }
 
 .touch-typer__input {
@@ -207,7 +209,6 @@ span {
   flex-grow: 70;
   flex-shrink: 1;
   font-family: consolas;
-  background-color: #eee;
   font-size: 1.2rem;
   display: block;
   padding: 0.4em;
@@ -223,6 +224,10 @@ span {
   flex-grow: 30;
   flex-shrink: 1;
   cursor: pointer;
+}
+
+.touch-typer__reset-button:hover {
+  background-color: #ddd;
 }
 .touch-typer__reset-button > ion-icon {
   font-size: 200%;

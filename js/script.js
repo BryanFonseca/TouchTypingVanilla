@@ -1,10 +1,6 @@
 'use strict';
-const circle = document.querySelector(".background-circle");
 class App {
   #touchTyper = new TouchTyper(textContainerElement, inputElement, resetButtonElement);
-  getTT(){
-    return this.#touchTyper;
-  }
 }
 
 class TouchTyper {
@@ -64,12 +60,6 @@ class TouchTyper {
     this.textToType.reset(this._generateRandomText());
     this.#isTypingLastWord = false;
     this.#currentWord = this.textToType.getNextWordInfo().word;
-/*     this.textInput
-      .getElement()
-      .removeEventListener("input", this._checkWord.bind(this));
-    this.textInput
-      .getElement()
-      .addEventListener("input", this._checkWord.bind(this)); */
     this.textToType.paintCurrentWord();
     this.textInput.getElement().value = '';
   }
@@ -85,7 +75,7 @@ class TouchTyper {
 
     //REALIZAR pruebas llamando a esta función de diferentes maneras
     //edit: la función es llamada como regular function call, y en un arrow function eso apunta a undefined
-    console.log(this);
+/*     console.log(this); */
     this.#timer.start();
     this.textToType.scrollToTop();
     this.textToType.getElement().style.overflowY = "hidden";
@@ -98,18 +88,9 @@ class TouchTyper {
   }
   _onSetTime() {
     //se llama cuando: se establece un valor nuevo en el timer
-
     this._reset();
     this.textInput.getElement().disabled = false;
     this.textInput.getElement().focus();
-
-    //se genera nuevo texto
-    //se hace scroll hasta arriba
-    /*     palabras = palabras
-      .split(/\t|\n/)
-      .map((_, __, arr) => arr[Math.floor(Math.random() * arr.length)]);
-    this.textToType = palabras;
-    this.textToType = new TextContainer(this.textContainerElement, this.text); */
   }
   _onComplete() {
     //se llama el callback pasado al timer cuando este termina
@@ -194,4 +175,5 @@ const timerElement = document.querySelector(".touch-typer__timer");
 const textContainerElement = document.querySelector(".touch-typer__text");
 const inputElement = document.querySelector(".touch-typer__input");
 const resetButtonElement = document.querySelector('.touch-typer__reset-button');
+const circle = document.querySelector(".background-circle");
 const app = new App();
