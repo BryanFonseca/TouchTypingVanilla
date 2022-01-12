@@ -1,6 +1,7 @@
 "use strict";
 class App {
-  #touchTyper = new TouchTyper(
+  //agregar el modal acá
+  touchTyper = new TouchTyper(
     textContainerElement,
     inputElement,
     resetButtonElement,
@@ -197,6 +198,9 @@ class Reset {
 class TextInput {
   constructor(htmlElement) {
     this.htmlElement = htmlElement;
+    //because the modal will make the element focused when closed
+    //debería crear callbacks onModalClosed pero bueh
+    this.htmlElement.blur();
   }
   getElement() {
     return this.htmlElement;

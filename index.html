@@ -14,11 +14,16 @@
   <body>
     <div class="background-circle"></div>
     <main class="app-container">
-      <div class="github-profile-corner">
-        <div class="github-profile-triangle"> </div>
+      <div class="corner-left">
+        <div class="github-profile-triangle"></div>
         <a class="github-profile-button" href="https://github.com/BryanFonseca">
           <ion-icon name="logo-github"></ion-icon>
         </a>
+      </div>
+      <div class="corner-right">
+        <button class="info-button">
+          <ion-icon name="information-outline"></ion-icon>
+        </button>
       </div>
       <div class="touch-typer">
         <div class="touch-typer__top">
@@ -40,37 +45,41 @@
         </div>
       </div>
       <div class="score">
-	<span class="score-phrase">You just hit</span>
-	<div class="score-data">
-	  <span class="score-current">0</span>
-	  <span class="score-wpm">WPM</span>
-	</div>
+        <span class="score-phrase">You just hit</span>
+        <div class="score-data">
+          <span class="score-current">0</span>
+          <span class="score-wpm">WPM</span>
+        </div>
       </div>
     </main>
     <div class="modal">
       <div class="modal-backdrop"></div>
       <div class="modal-body">
-	<button class="modal-close">&times;</button>
-	<h2>Made with 💓 by Bryan Fonseca</h2>
-	<p>
-	I thought building this personal project could be a nice way of
-	reinforcing some of the things I've been learning lately.
-	</p>
-	<p>
-	I might have taken some inspiration from a not-so-well-known app so
-	maybe and <strong>ONLY</strong> maybe and if you're extremely into
-	unpopular apps you're gonna be able to guess which it is.
-	</p>
+        <button class="modal-close">&times;</button>
+        <h2>Made with 💓 by Bryan Fonseca</h2>
+        <p>
+          This project is about telling you how many words you can type in a
+          minute.
+        </p>
+        <p>
+          It considers 5 keystrokes = 1 word and the words must be typed
+          correctly to move on to the next one so try to be acurrate 😉
+        </p>
+        <p>
+          You can also change the test time if you think it's too long but it
+          should ideally be 1 minute to provide a reliable measurement of your
+          type speed.
+        </p>
       </div>
     </div>
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
-      ></script>
+    ></script>
     <script
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
-      ></script>
+    ></script>
 
     <script src="js/modal.js"></script>
     <script src="js/timer.js"></script>
