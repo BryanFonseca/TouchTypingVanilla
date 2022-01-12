@@ -147,8 +147,8 @@ class TouchTyper {
       //la palabra escrita es correcta después de pulsar espacio
 
       //se contarían los carácteres correctos
-/*       console.log(this.#currentWord.length); */
-      this.#typedChars += this.#currentWord.length;
+      //+1 because of the space ;)
+      this.#typedChars += this.#currentWord.length + 1;
 
       if (this.#isTypingLastWord) {
         //Se escribió la última palabra

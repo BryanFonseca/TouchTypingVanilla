@@ -251,19 +251,33 @@ span {
   font-size: 1.25rem;
   background-color: #eee;
 /*   padding: 0.6em 1.3em; */
-  padding: 0.2em 1.9em;
+  padding: 0 1.5em;
+  padding-top: 0.65em;
+  padding-bottom: 0.55em;
 /*   border-radius: 0.5em; */
-  border-radius: 1em;
+  border-radius: 0.7em;
+}
+
+.score-data{
+  margin: -0.1em 0;
+}
+
+.score-phrase{
+  display: block;
+  text-align: center;
+  font-weight: 600;
+  margin-bottom: 0.1em;
 }
 
 .score-current{
-  font-size: 4em;
+  font-size: 3.5em;
   font-weight: 700;
+  margin: -0.1em 0em;
 }
 
 .score-wpm{
   font-weight: 600;
-  font-size: 2.5em;
+  font-size: 2em;
 }
 
 /* Modifier classes */

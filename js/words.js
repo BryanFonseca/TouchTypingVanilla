@@ -162,6 +162,6 @@ const rawText = `1.	De	168.	Ver	334.	Claro
 163.	Sea	329.	Quienes	495.	Comunidad
 164.	Tenía	330.	Proyecto	496.	Necesidad
 165.	Nunca	331.	Mercado	497.	Serie
-166.	Poder	332.	Mayoría	498.	Organizació
+166.	Poder	332.	Mayoría	498.	Organización
 167.	Aquí	333.	Luz	499.	Nuevas
 500.	Calidad`;
