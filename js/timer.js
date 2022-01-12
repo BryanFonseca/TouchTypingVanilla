@@ -4,9 +4,9 @@ class Timer {
   //keeps track of current time
   #seconds;
   //stores the value the timer was first set with
-  #originalSeconds;
+  #initialSeconds;
   constructor(seconds, callbacks) {
-    this.#seconds = this.#originalSeconds = seconds;
+    this.#seconds = this.#initialSeconds = seconds;
     this.#htmlElement = timerElement;
 
     if (callbacks) {
@@ -20,6 +20,9 @@ class Timer {
   getSeconds(){
     return this.#seconds;
   }
+  getInitialSeconds(){
+    return this.#initialSeconds;
+  }
   _setTime() {
     //comprobar por decimales y números en general
 
@@ -27,13 +30,13 @@ class Timer {
 
     if (!this.#htmlElement.value.includes(":")) {
       //se consideran segundos
-      this.#seconds = this.#originalSeconds = +this.#htmlElement.value;
+      this.#seconds = this.#initialSeconds = +this.#htmlElement.value;
     } else {
       //se convierte esa notación a minutos:segundos
       const [minute, second] = this.#htmlElement.value
         .split(":")
         .map((n) => +n);
-      this.#seconds = this.#originalSeconds = minute * 60 + second;
+      this.#seconds = this.#initialSeconds = minute * 60 + second;
     }
     this.#seconds = Math.floor(this.#seconds);
     if (!Number.isFinite(this.#seconds) || this.#seconds < 1) this.#seconds = 60;
@@ -56,21 +59,24 @@ class Timer {
 
     if (this.#seconds <= 0) {
       this.stop();
-      if (this.onComplete) this.onComplete();
+      this.complete();
       return;
     }
     this.#seconds--;
+  }
+  complete(){
+    if (this.onComplete) this.onComplete();
   }
   stop() {
     this.#htmlElement.disabled = false;
     clearInterval(this.#intervalID);
   }
   reset() {
-/*     console.log(this); */
+    /*     console.log(this); */
     //cuando se presione el botón reiniciar del widget
     this.stop();
     this.#seconds = 60;
-    this.#seconds = 60;
+    this.#initialSeconds = 60;
     this._updateTimerValue();
   }
 }

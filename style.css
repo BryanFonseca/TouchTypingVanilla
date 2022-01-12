@@ -247,10 +247,13 @@ span {
 }
 
 .score{
-  font-size: 1rem;
+/*   font-size: 1rem; */
+  font-size: 1.25rem;
   background-color: #eee;
-  padding: 0.6em 1.3em;
-  border-radius: 0.5em;
+/*   padding: 0.6em 1.3em; */
+  padding: 0.2em 1.9em;
+/*   border-radius: 0.5em; */
+  border-radius: 1em;
 }
 
 .score-current{
