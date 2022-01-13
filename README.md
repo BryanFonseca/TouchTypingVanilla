@@ -3,7 +3,8 @@
 One of the most interesting (and painful) things I learned is that when you create an object from a class, the methods declared inside the class with the `method(){}` notation are added to the prototype.
 On the other hand, if they're created using an arrow function they're added directly into the instance.
 
-That detail has some implications mainly regarding to Events and the beautiful `this` keyword.
+### Events and the `this` keyword
+That detail from above has some implications mainly regarding to Events and the beautiful `this` keyword.
 For example, if I want to add an event listener to some DOM element (inside a class constructor for example) and work with the `this` keyword pointing to other object than the correspoding to the DOM element I need to bind it with something like `method.bind(this)` which will set in stone the `this` to point to the instance itself.
 That's one solution, but what if I need to add the listener and then remove it, I couldn't just do something like:
 ```js
@@ -22,9 +23,11 @@ element.addEventListener('click', method.bind(this));
 ```
 I inspected the events of the DOM element with the DevTools and noticed that everytime that line of code executed, the number of listeners with the apparently same callback increased.
 I thought that behavior was normal so I tried to find some workarounds and failed miserably then I tried with an arrow function as a callback instead of the regular function and boom! I didn't matter how many times I executed that line of code from above, the listener was only added one since the reference of the callback was always the same.
-Also the `this` was magically set to the instance so perfect. 
+
+### Difference between function statement and arrow functions when defining methods of a class
+When I used an arrow function to define methods of a class, the `this` was magically set to the instance, that's very convenient.
 However that was not enough for satisfying my curiosity, it was still confusing to me HOW could the `this` point to the object since it's an arrow functions as a property of an object so the `this` should point to the one of the surrounding scope.
-What scope? Let's think this object was created using a class.
+What scope? Let's think this object was created using a class in the global context.
 ```js
 const obj = {
   prop: 'yo',
@@ -34,9 +37,10 @@ const obj = {
   },
 };
 ```
-Well in that case `this` would be simply enough the `window` object based on everything I knew so far, NOT obj itself.
+Well in that case `this` would be simply enough the `window` object based on everything I knew so far, NOT **obj** itself.
 
 I guess I finally figured it out why `this` points to the instance.
+
 When using the class notation that is actually converted to a constructor function behind the scenes, that's why they always say "classes are just syntactic sugar", well that's not actually quite true but to understand what I'm about to tell you it'll be enough.
 So starting from there, any class will eventually be converted to something of the form:
 ```js
@@ -56,4 +60,8 @@ Well it's indeed the new empty object assigned to the `this` keyword created usi
 So it makes sense that the methods declared using arrow functions in class notation have their `this` pointing to the instance.
 
 The final object looks indeed like `obj` but since it has gone through the previus process, the `this` is already set in stone. 
-The `this` of an arrow function points to the outer `this` from where it was **DECLARED**, not called as I thought at first.
+
+*The `this` of an arrow function points to the outer `this` from where it was **DECLARED**, not called as I thought at first.*
+
+## Further considerations
+I know the project is not the most efficient thing in Earth. I'm iterating multiple times a big array with the 500 most common words of Spanish. Actually, I'm creating that array from a string using a couple of array methods, then I'm using it to add spans to every character in order to be able to apply the animations so it's not a surprise it doesn't executes immediately.
