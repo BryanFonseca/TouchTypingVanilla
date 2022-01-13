@@ -41,15 +41,15 @@ When using the class notation that is actually converted to a constructor functi
 So starting from there, any class will eventually be converted to something of the form:
 ```js
 function constructor(){
-  this.prop = 'yo'; // (*)
-  Object.defineProperty(this, 'method', () => console.log(this)); // (**)
+  this.prop = 'yo'; // (+)
+  Object.defineProperty(this, 'method', () => console.log(this)); // (++)
 }
 ```
 When a constructor function is called using the `new` operator a new object is created inside the function and assigned to its `this` keyword, at the end of the function it is returned implicitly.
-That allows to add properties to that new object using the `this` keyword. (*)
-However, considering class notation gets converted to constructor function notation, the methods added directly to the instance should look something like (**).
+That allows to add properties to that new object using the `this` keyword. (+)
+However, considering class notation gets converted to constructor function notation, the methods added directly to the instance should look something like (++).
 And what methods are added directly to the instance in class notation? Exactly, methods declared using arrow functions.
-Then this gets interesting, since the method added in (**) is using an arrow function, the `this` will point to the outer `this` and what will that outer `this` be then? 
+Then this gets interesting, since the method added in (++) is using an arrow function, the `this` will point to the outer `this` and what will that outer `this` be then? 
 Well it's indeed the new empty object assigned to the `this` keyword created using the `new` operator.
 So it makes sense that the methods declared using arrow functions in class notation have their `this` pointing to the instance.
 
