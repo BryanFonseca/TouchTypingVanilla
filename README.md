@@ -7,8 +7,8 @@ That detail has some implications mainly regarding to Events and the beautiful `
 For example, if I want to add an event listener to some DOM element (inside a class constructor for example) and work with the `this` keyword pointing to other object than the correspoding to the DOM element I need to bind it with something like `method.bind(this)` which will set in stone the `this` to point to the instance itself.
 That's one solution, but what if I need to add the listener and then remove it, I couldn't just do something like:
 ```js
-element.addEventListener(method.bind(this));
-element.addEventListener(method.bind(this));
+element.addEventListener('click', method.bind(this));
+element.addEventListener('click', method.bind(this));
 ```
 because in order for that to work the callbacks need to be the same, in this case they're different, they're created on the fly and therefore they are not the same object in memory.
 
@@ -18,7 +18,7 @@ Silly or not it led me to noticing that every time you bind, the objects are dif
 I also learned that you can only add any listener once.
 For example, I ran into a situation where I was doing 
 ```js
-element.addEventListener(method.bind(this));
+element.addEventListener('click', method.bind(this));
 ```
 I inspected the events of the DOM element with the DevTools and I noticed that everytime that line of code executed, the number of listeners with the apparently same callback increased.
 I thought that behavior was normal so I tried to find some workarounds and failed miserably then I tried with an arrow function as a callback instead of the regular function and boom! I didn't matter how many times I executed that line of code from above, the listener was only added one since the reference of the callback was always the same.
