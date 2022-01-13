@@ -20,7 +20,7 @@ For example, I ran into a situation where I was doing
 ```js
 element.addEventListener('click', method.bind(this));
 ```
-I inspected the events of the DOM element with the DevTools and I noticed that everytime that line of code executed, the number of listeners with the apparently same callback increased.
+I inspected the events of the DOM element with the DevTools and noticed that everytime that line of code executed, the number of listeners with the apparently same callback increased.
 I thought that behavior was normal so I tried to find some workarounds and failed miserably then I tried with an arrow function as a callback instead of the regular function and boom! I didn't matter how many times I executed that line of code from above, the listener was only added one since the reference of the callback was always the same.
 Also the `this` was magically set to the instance so perfect. 
 However that was not enough for satisfying my curiosity, it was still confusing to me HOW could the `this` point to the object since it's an arrow functions as a property of an object so the `this` should point to the one of the surrounding scope.
