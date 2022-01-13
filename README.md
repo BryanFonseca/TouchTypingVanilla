@@ -12,7 +12,7 @@ element.addEventListener('click', method.bind(this));
 ```
 because in order for that to work the callbacks need to be the same, in this case they're different, they're created on the fly and therefore they are not the same object in memory.
 
-That's a silly example, I thought doing something like that would be useful when you need to hear for an event only once using the config object `{ once: true }`, but then I realized when the callback gets called the listener is actually removed right away so ther're no need to do such thing.
+That's a silly example, I thought doing something like that would be useful when you need to hear for an event only once using the config object `{ once: true }`, but then I realized when the callback gets called the listener is actually removed right away so there's no need to do such thing.
 Silly or not it led me to noticing that every time you bind, the objects are different, which actually makes sense.
 
 I also learned that you can only add any listener once.
