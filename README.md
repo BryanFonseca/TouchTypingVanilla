@@ -1,7 +1,7 @@
 # TouchTypingVanilla
 ## What I learned from this project?
 One of the most interesting (and painful) things I learned is that when you create an object from a class, the methods declared inside the class with the `method(){}` notation are added to the prototype.
-On the other hand, if they're create using an arrow function they're added directly into the instance.
+On the other hand, if they're created using an arrow function they're added directly into the instance.
 
 That detail has some implications mainly regarding to Events and the beautiful `this` keyword.
 For example, if I want to add an event listener to some DOM element (inside a class constructor for example) and work with the `this` keyword pointing to other object than the correspoding to the DOM element I need to bind it with something like `method.bind(this)` which will set in stone the `this` to point to the instance itself.
