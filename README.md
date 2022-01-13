@@ -29,7 +29,7 @@ What scope? Let's think this object was created using a class.
 const obj = {
   prop: 'yo',
   method: () => {
-    //arrow function doesn't the its own this :c
+    //arrow functions don't get the their own this :c
     console.log(this);
   },
 };
@@ -37,7 +37,7 @@ const obj = {
 Well in that case `this` would be simply enough the `window` object based on everything I knew so far, NOT obj itself.
 
 I guess I finally figured it out why `this` points to the instance.
-When using the class notation that is actually converted to a constructor function behind the scenes, that's why they always say "classes are just syntactic sugar" well that's not actually quite true but for what I'm about to tell you it'll be enough.
+When using the class notation that is actually converted to a constructor function behind the scenes, that's why they always say "classes are just syntactic sugar", well that's not actually quite true but to understand what I'm about to tell you it'll be enough.
 So starting from there, any class will eventually be converted to something of the form:
 ```js
 function constructor(){
