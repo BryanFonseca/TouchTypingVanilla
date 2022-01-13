@@ -27,10 +27,11 @@ However that was not enough for satisfying my curiosity, it was still confusing 
 What scope? Let's think this object was created using a class.
 ```js
 const obj = {
+  prop: 'yo',
   method: () => {
     //arrow function doesn't the its own this :c
     console.log(this);
-  }
+  },
 };
 ```
 Well in that case `this` would be simply enough the `window` object based on everything I knew so far, NOT obj itself.
@@ -40,7 +41,7 @@ When using the class notation that is actually converted to a constructor functi
 So starting from there, any class will eventually be converted to something of the form:
 ```js
 function constructor(){
-  this.property = 'yo'; // (*)
+  this.prop = 'yo'; // (*)
   Object.defineProperty(this, 'method', () => console.log(this)); // (**)
 }
 ```
