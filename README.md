@@ -64,4 +64,4 @@ The final object looks indeed like `obj` but since it has gone through the previ
 *The `this` of an arrow function points to the outer `this` from where it was **DECLARED**, not called as I thought at first.*
 
 ## Further considerations
-I know the project is not the most efficient thing in Earth. I'm iterating multiple times a big array with the 500 most common words of Spanish. Actually, I'm creating that array from a string using a couple of array methods, then I'm using it to add spans to every character in order to be able to apply the animations so it's not a surprise it doesn't executes immediately.
+I know this project is not the most efficient thing on Earth. I'm iterating multiple times a big array with the 500 most common words of Spanish. Actually, I'm creating that array from a string using a couple of array methods, then I'm using it to add spans to every character in order to be able to apply the animations so it's not a surprise it doesn't executes immediately.
