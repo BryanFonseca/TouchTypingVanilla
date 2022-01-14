@@ -1,4 +1,9 @@
 # TouchTypingVanilla
+
+## What does it look like?
+![screenshot 1](./screenshots/1.PNG)
+![screenshot 2](./screenshots/2.PNG)
+
 ## What I learned from this project?
 One of the most interesting (and painful) things I learned is that when you create an object from a class, the methods declared inside the class with the `method(){}` notation are added to the prototype.
 On the other hand, if they're created using an arrow function they're added directly into the instance.
